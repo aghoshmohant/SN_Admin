@@ -1,0 +1,85 @@
+/* Authority Details Container */
+.authority-details-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to bottom, #1f512f, #b3ffb3);
+}
+
+/* Card */
+.card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 500px;
+    text-align: center;
+    flex-grow: 1;
+    margin-top: 20px;
+}
+
+/* Profile Section */
+.profile-section {
+    margin-bottom: 20px;
+}
+
+.profile-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #4B8B3B;
+}
+
+h2 {
+    margin: 10px 0;
+    font-size: 22px;
+}
+
+p {
+    color: #555;
+    font-size: 16px;
+}
+
+/* Details Section */
+.details-section {
+    text-align: left;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+strong {
+    color: #2D5F32;
+}
+
+/* ID Proof Section */
+.id-proof-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.id-proof-photo {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 6px;
+    border: 2px solid #2D5F32;
+    margin-top: 10px;
+}
+
+/* Error Message */
+.error {
+    text-align: center;
+    font-size: 18px;
+    color: red;
+}
+
+.delete-btn {
+    margin-top: 10px; /* Space between ID proof and button */
+    /* Add any other styling as needed */
+}
