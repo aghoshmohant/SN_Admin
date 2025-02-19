@@ -28,11 +28,8 @@ const Login = () => {
       const response = await axios.post('http://localhost:5000/api/login', { username: username, password });
 
       console.log("Login successful:", response.data);
-
-      // Save token to localStorage
       localStorage.setItem('token', response.data.token);
 
-      // Redirect to dashboard
       window.location.href = "/home";
 
     } catch (error) {

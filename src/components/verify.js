@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import axios from "../config/axiosconfig"; // Ensure axios instance is correctly configured
+import axios from "../config/axiosconfig"; 
 import "./style.css";
 import Backbutton from "../icons/back-button.png";
 import Logo from "../image/SafeNet Logo no bg.png";
 
 const VolunteerVerification = () => {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(""); // Error state
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(""); 
 
-  // ✅ Fetch data from backend
+
   useEffect(() => {
     const fetchVolunteers = async () => {
       try {
@@ -25,12 +25,12 @@ const VolunteerVerification = () => {
     fetchVolunteers();
   }, []);
 
-  // ✅ Show image in a modal (replace alert)
+
   const showImageModal = (imageSrc) => {
     window.open(imageSrc, "_blank");
   };
 
-  // ✅ Approve volunteer
+
   const authoVerify = async (id) => {
     try {
       const response = await axios.put('http://192.168.20.10:5000/api/autho-verify', { id });
@@ -63,7 +63,7 @@ const VolunteerVerification = () => {
 
   return (
     <div>
-      {/* Navigation */}
+
       <div className="nav">
         <a href="/home">
           <div className="back">
@@ -75,7 +75,7 @@ const VolunteerVerification = () => {
         </div>
       </div>
 
-      {/* Main Content */}
+
       <div className="main">
         <h1 className="title">Volunteer Verification</h1>
 

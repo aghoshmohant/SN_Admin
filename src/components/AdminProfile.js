@@ -1,6 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import axios from '../config/axiosconfig'; // Ensure this points to the correct API config
-import './AdminProfile.css';
+import {
+  TextField,
+  Button,
+  Typography,
+  Container,
+  Box,
+  AppBar,
+  Toolbar,
+} from '@mui/material';
+import {
+  // ... other imports
+  IconButton, // Import IconButton
+  // ...
+} from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
+import axios from '../config/axiosconfig';
+
+
 
 const AdminProfile = () => {
   const [admin, setAdmin] = useState({ id: '', name: '' });
@@ -12,7 +29,7 @@ const AdminProfile = () => {
   useEffect(() => {
     const fetchAdmin = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/admin-profile'); // Adjust API path
+        const response = await axios.get('http://localhost:5000/api/admin-profile'); 
         setAdmin(response.data); 
       } catch (error) {
         console.error("Error fetching admin profile:", error);
@@ -23,7 +40,7 @@ const AdminProfile = () => {
     fetchAdmin();
   }, []);
 
-  // ✅ Handle Password Reset
+ 
   const handlePasswordReset = async () => {
     if (!newPassword || !confirmPassword) {
       setMessage('Please enter a new password.');
@@ -37,7 +54,7 @@ const AdminProfile = () => {
 
     try {
       const response = await axios.put('http://localhost:5000/api/admin-profile/update-password', {
-        id: admin.id, // Send admin ID
+        id: admin.id,
         newPassword: newPassword
       });
 
@@ -50,44 +67,69 @@ const AdminProfile = () => {
     }
   };
 
+  const handleBack = () => {
+
+    window.history.back();
+  }
+
   return (
-    <div className="admin-profile-container">
-      <h2>Admin Profile</h2>
-      <div className="profile-details">
-        <div className="detail-row">
-          <label htmlFor="adminName">Admin Name:</label>
-          <input
-            type="text"
-            id="adminName"
-            value={admin.name}
-            readOnly // Prevent editing admin name
-          />
-        </div>
-        <div className="password-reset">
-          <h3>Reset Password</h3>
-          <div className="detail-row">
-            <label htmlFor="newPassword">New Password:</label>
-            <input
-              type="password"
+    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <AppBar position="static" sx={{ backgroundColor: '#2E7D32' }}>
+        <Toolbar>
+        <IconButton onClick={handleBack} color="inherit" aria-label="back"> {/* Back button */}
+              <ArrowBackIcon />
+            </IconButton>
+          <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', color: 'white', flexGrow: 1 }}
+          align='center'>
+            Admin Profile
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
+      <Container component="main" maxWidth="xs" sx={{ mt: 8, mb: 2, display: 'flex', justifyContent: 'center' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', p: 4, border: '1px solid #ccc', borderRadius: '5px' }}>
+          <Typography variant="h5" component="h2" gutterBottom sx={{ fontWeight: 'bold' }}>
+            Admin Name:
+          </Typography>
+          <Typography variant="h6" component="h3" gutterBottom>
+            aswanth
+          </Typography>
+
+          <Box component="form" noValidate onSubmit={handlePasswordReset} sx={{ mt: 1, width: '100%' }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
               id="newPassword"
+              label="New Password"
+              type="password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
+              variant="outlined"
             />
-          </div>
-          <div className="detail-row">
-            <label htmlFor="confirmPassword">Confirm Password:</label>
-            <input
-              type="password"
+            <TextField
+              margin="normal"
+              required
+              fullWidth
               id="confirmPassword"
+              label="Confirm Password"
+              type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+              variant="outlined"
             />
-          </div>
-          <button onClick={handlePasswordReset}>Reset Password</button>
-          {message && <p className="message">{message}</p>}
-        </div>
-      </div>
-    </div>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 2, backgroundColor: '#1976D2', color: 'white', fontWeight: 'bold' }}
+            >
+              Reset Password
+            </Button>
+          </Box>
+        </Box>
+      </Container>
+    </Box>
   );
 };
 
