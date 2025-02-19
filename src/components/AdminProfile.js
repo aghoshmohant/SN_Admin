@@ -1,25 +1,52 @@
-// AdminProfile.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from '../config/axiosconfig'; // Ensure this points to the correct API config
 import './AdminProfile.css';
 
 const AdminProfile = () => {
-  const [adminName, setAdminName] = useState('Admin User'); // Replace with actual admin name
+  const [admin, setAdmin] = useState({ id: '', name: '' });
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
 
-  const handlePasswordReset = () => {
-    if (newPassword === confirmPassword && newPassword !== '') {
-        // Here you would typically make an API call to reset the password.
-        // For this example, we'll just display a success message.
-        setMessage('Password reset successfully!');
-        setNewPassword('');
-        setConfirmPassword('');
-    } else if (newPassword === ''){
-        setMessage('Please enter a new password')
+
+  useEffect(() => {
+    const fetchAdmin = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/admin-profile'); // Adjust API path
+        setAdmin(response.data); 
+      } catch (error) {
+        console.error("Error fetching admin profile:", error);
+        setMessage("Failed to load admin profile");
+      }
+    };
+
+    fetchAdmin();
+  }, []);
+
+  // ✅ Handle Password Reset
+  const handlePasswordReset = async () => {
+    if (!newPassword || !confirmPassword) {
+      setMessage('Please enter a new password.');
+      return;
     }
-    else {
+
+    if (newPassword !== confirmPassword) {
       setMessage('Passwords do not match.');
+      return;
+    }
+
+    try {
+      const response = await axios.put('http://localhost:5000/api/admin-profile/update-password', {
+        id: admin.id, // Send admin ID
+        newPassword: newPassword
+      });
+
+      setMessage(response.data.message);
+      setNewPassword('');
+      setConfirmPassword('');
+    } catch (error) {
+      console.error("Error updating password:", error);
+      setMessage("Failed to update password.");
     }
   };
 
@@ -32,9 +59,8 @@ const AdminProfile = () => {
           <input
             type="text"
             id="adminName"
-            value={adminName}
-            onChange={(e) => setAdminName(e.target.value)}
-            readOnly // Make it read-only for now
+            value={admin.name}
+            readOnly // Prevent editing admin name
           />
         </div>
         <div className="password-reset">

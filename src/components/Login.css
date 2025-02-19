@@ -1,8 +1,11 @@
 body {
-  background: linear-gradient(45deg, #001a34, #1ab147);
+  background: linear-gradient(135deg, #2c3e50, #3498db, #2c3e50); /* Adjusted angle and colors */
   font-family: "Open Sans", sans-serif;
+  margin: 0; /* Remove default body margins */
+  min-height: 100vh; /* Ensure full viewport height */
+  display: flex; /* Optional: If you want to center content easily */
+  flex-direction: column; /* Optional: If you want to center content easily */
 }
-
 form {
   text-align: center;
 }
@@ -73,7 +76,7 @@ img {
   font-size: 0.95em;
 }
 
-.login input[type="email"],
+.login input[type="text"],
 .login input[type="password"] {
   background: #fff;
   border-color: #bbb;
