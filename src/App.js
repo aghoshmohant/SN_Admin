@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Navigate, Routes } from 'react-router-d
 import Login from './components/Login';
 import Home from './components/home';
 import Verify from './components/verify';
-import AuthorityDetails from './components/AuthorityDeatils';
+import AuthorityDetails from './components/AuthorityDetails';
 import Profile from './components/AdminProfile';
 
 const App = () => {
@@ -13,7 +13,7 @@ const App = () => {
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/verify" element={<Verify />} />
-        <Route path="/authority-details" element={<AuthorityDetails />} />
+        <Route path="/authority-details/:id" element={<AuthorityDetails />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
     </Router>

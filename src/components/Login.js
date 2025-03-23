@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import axios from '../config/axiosconfig';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Import axios directly
 import './Login.css';
 import Logo from '../image/SafeNet Logo no bg.png';
 
@@ -9,6 +10,14 @@ const Login = () => {
   const [error, setError] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate("/home");
+    }
+  }, [navigate]);
 
   const handleClick = () => {
     setShowForm(true);
@@ -25,16 +34,17 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/login', { username: username, password });
+      const response = await axios.post('http://localhost:5000/api/adminlogin', {
+        username,
+        password
+      });
 
       console.log("Login successful:", response.data);
       localStorage.setItem('token', response.data.token);
-
-      window.location.href = "/home";
+      navigate("/home");
 
     } catch (error) {
-      console.log(error)
-      console.error("Login error:", error.response?.data?.error || "Something went wrong" );
+      console.error("Login error:", error.response?.data?.error || "Something went wrong");
       setError(error.response?.data?.error || "Invalid credentials");
     }
   };
@@ -64,7 +74,7 @@ const Login = () => {
             />
           </p>
           <p>
-            <input type="submit" value="Log in"  />
+            <input type="submit" value="Log in" />
           </p>
         </div>
       </form>

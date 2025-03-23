@@ -1,36 +1,45 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./home.css";
 import { User } from "lucide-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "./home.css";
 
 export default function AdminHome() {
   const navigate = useNavigate();
   const [authorities, setAuthorities] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  // Fetch authorities from API
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+      return;
+    }
+
     const fetchAuthorities = async () => {
-        try {
-            const response = await axios.get("http://localhost:5000/api/home");
-            console.log("Fetched Authorities:", response.data); 
-            setAuthorities(response.data.filter(auth => auth.verified));
-        } catch (error) {
-            console.error("Error fetching authorities:", error);
-        }
+      try {
+        const response = await axios.get("http://localhost:5000/api/adminhome");
+        setAuthorities(response.data);
+      } catch (error) {
+        setError("Error fetching authorities. Please try again.");
+        console.error("Fetch error:", error.response ? error.response.data : error.message);
+      } finally {
+        setLoading(false);
+      }
     };
+
     fetchAuthorities();
-}, []);
+  }, [navigate]);
 
   return (
     <div className="admin-container">
       <aside className="sidebar">
         <h2>Admin Panel</h2>
         <ul>
-          <li><a href="/home">Home</a></li>
-          
-          <li><a href="/">Logout</a></li>
+          <li><Link to="/home">Home</Link></li>
+          <li><Link to="/profile">Profile</Link></li>
         </ul>
       </aside>
 
@@ -39,36 +48,46 @@ export default function AdminHome() {
           <h3>Admin Panel Management</h3>
           <div className="top-icons">
             <Link to="/profile" className="profile-link">
-              <span className="icon"><User size={20} /> Profile</span>
+              <span className="icon"><User size={20} />Profile</span>
             </Link>
           </div>
         </div>
 
-        <a href="/verify">
-          <button className="new-request">New Request</button>
-        </a>
-
         <div className="authority-list">
-          {authorities.length > 0 ? (
-            authorities.map((auth) => (
-              <div className="authority-card" key={auth.id}>
-                <div className="profile-placeholder"></div>
-                <div className="authority-info">
-                  <h4>{auth.name}</h4>
-                  <p>{auth.designation}</p>
-                  <p>{auth.district}</p>
-                </div>
-                <div className="action-buttons">
-                  <button 
-                    className="view-btn" 
-                    onClick={() => navigate("/authority-details", { state: { authority: auth } })}
-                  >
-                    View
-                  </button>
-                  <button className="delete-btn">Delete</button>
-                </div>
-              </div>
-            ))
+          <button className="verify-btn" onClick={() => navigate("/verify")}>Verification</button>
+          {loading ? (
+            <p>Loading...</p>
+          ) : error ? (
+            <p style={{ color: "red" }}>{error}</p>
+          ) : authorities.length > 0 ? (
+            <table className="authority-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Photo</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>District</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {authorities.map((auth, index) => (
+                  <tr key={auth.id}>
+                    <td>{index + 1}</td>
+                    <td>{auth.profile_photo ? <img src={auth.profile_photo} alt="Profile" className="profile-photo" /> : "No Image"}</td>
+                    <td>{auth.name || "N/A"}</td>
+                    <td>{auth.email || "N/A"}</td>
+                    <td>{auth.phone_number || "N/A"}</td>
+                    <td>{auth.district || "N/A"}</td>
+                    <td>
+                      <button className="view-btn" onClick={() => navigate(`/authority-details/${auth.id}`)}>View</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           ) : (
             <p>No verified authorities available.</p>
           )}

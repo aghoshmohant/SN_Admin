@@ -1,0 +1,127 @@
+/* Profile Page - Light Green Theme */
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #C9E4CA, #A7D7C5);
+}
+
+/* Navigation Bar at the Top */
+.navbar {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Back Button */
+.back-btn {
+    border: none;
+    background: transparent;
+    color: #2F4F4F;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    color: #1B4332;
+}
+
+/* Centered Profile Box */
+.profile-box {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 380px;
+    color: #2F4F4F;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 80px; /* Adjusted to account for the navbar */
+}
+
+.profile-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Profile Logo (Inside the Box) */
+.profile-logo {
+    width: 90px;
+    margin-bottom: 15px;
+}
+
+/* Input Fields */
+.profile-box input {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: none;
+    border-radius: 30px;
+    outline: none;
+    font-size: 16px;
+    text-align: center;
+    color: #2F4F4F;
+    background: rgba(255, 255, 255, 0.6);
+    transition: 0.3s ease;
+}
+
+.profile-box input:focus {
+    background: white;
+    border: 2px solid #5C946E;
+}
+
+/* Buttons */
+.update-btn, .logout-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.update-btn {
+    background: linear-gradient(135deg, #5C946E, #1B4332);
+}
+
+.logout-btn {
+    background: linear-gradient(135deg, #FF6B6B, #C44D58);
+}
+
+/* Hover Effects */
+.update-btn:hover {
+    background: linear-gradient(135deg, #1B4332, #5C946E);
+}
+
+.logout-btn:hover {
+    background: linear-gradient(135deg, #C44D58, #FF6B6B);
+}
+
+/* Messages */
+.error-message {
+    color: #D9534F;
+    font-size: 14px;
+}
+
+.success-message {
+    color: #28A745;
+    font-size: 14px;
+}

@@ -10,7 +10,6 @@ const Navbar = () => {
             <button className="back-btn" onClick={() => navigate(-1)}>
                 &#8592; Back
             </button>
-            <div className="logo">Disaster Management</div>
         </div>
     );
 };

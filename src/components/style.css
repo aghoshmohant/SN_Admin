@@ -8,28 +8,28 @@
 
 /* Body Styling */
 body {
-    background: linear-gradient(180deg, #046c4e, #b4f8b4); /* Darker gradient */
+    background: linear-gradient(180deg, #046c4e, #b4f8b4);
     color: #333;
+    min-height: 100vh;
 }
-
 
 /* Navigation Bar */
 .nav {
-    height: 70px;
+    height: 80px;
     background: linear-gradient(90deg, #046c4e, #08a04b);
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
+    padding: 0 30px;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
 }
 
 /* Back Button - Circular & Interactive */
-.back-button {
+.back {
     width: 50px;
     height: 50px;
     display: flex;
@@ -43,31 +43,22 @@ body {
     border: none;
 }
 
-.back-button:hover {
+.back:hover {
     background: #08a04b;
     box-shadow: 0px 0px 12px rgba(8, 160, 75, 0.8);
     transform: scale(1.1);
 }
 
 /* Back Icon */
-.back-button img {
+.back-icon {
     width: 25px;
     height: 25px;
     filter: invert(1);
 }
 
-/* Logo Styling */
-.logo {
-    height: 50px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.logo:hover {
-    transform: scale(1.05);
-}
 /* Main Content */
 .main {
-    padding-top: 100px;
+    padding-top: 120px;
     width: 90%;
     margin: auto;
     display: flex;
@@ -77,98 +68,201 @@ body {
 
 /* Title */
 .title {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
-    color: #064e3b;
+    color: #cffaef;
     text-transform: uppercase;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Table Styling */
-table {
+.district-head-table {
     width: 100%;
     border-collapse: collapse;
     background: white;
-    border-radius: 10px;
+    border-radius: 15px;
     overflow: hidden;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-th, td {
-    padding: 12px;
+.table-header-row th {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    background: linear-gradient(90deg, #046c4e, #08a04b);
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.table-data-row td {
+    padding: 15px;
     text-align: center;
     border-bottom: 1px solid #ddd;
 }
 
-th {
-    background: #046c4e;
-    color: white;
-    font-weight: bold;
-}
-
 /* Alternating Row Colors */
-tr:nth-child(odd) {
+.table-data-row:nth-child(odd) {
     background-color: #eaf9ea;
 }
 
-tr:nth-child(even) {
+.table-data-row:nth-child(even) {
     background-color: #c9f2cb;
 }
 
-/* Table Buttons */
-button {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
+/* Hover Effect on Rows */
+.table-data-row:hover {
+    background-color: #b4f8b4;
+    transition: background-color 0.3s ease;
 }
 
-/* ID Proof & Photo Buttons */
-button:nth-child(1) {
-    background: #046c4e;
+/* Buttons */
+.view-id-proof-btn, .view-photo-btn, .approve-btn, .reject-btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin: 5px 0;
+    width: 100%;
+}
+
+.view-id-proof-btn, .view-photo-btn {
+    background: linear-gradient(90deg, #046c4e, #08a04b);
     color: white;
 }
 
-button:nth-child(1):hover {
-    background: #034d36;
+.view-id-proof-btn:hover, .view-photo-btn:hover {
+    background: linear-gradient(90deg, #034d36, #046c4e);
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Approve & Reject Buttons */
 .approve-btn {
-    background-color: #08a04b;
+    background: linear-gradient(90deg, #08a04b, #046c4e);
     color: white;
 }
 
 .reject-btn {
-    background-color: #e63946;
+    background: linear-gradient(90deg, #e63946, #b21828);
     color: white;
 }
 
 .approve-btn:hover {
-    background-color: #046c4e;
+    background: linear-gradient(90deg, #046c4e, #034d36);
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .reject-btn:hover {
-    background-color: #b21828;
+    background: linear-gradient(90deg, #b21828, #8c1320);
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Action Buttons Container */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Image Modal */
+.image-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+}
+
+.image-modal {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 95%;
+    max-height: 95%;
+    overflow: auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 90%;
+}
+
+.modal-image {
+    width: 100%;  
+    height: auto;
+    max-height: 100%;
+    border-radius: 10px;
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #e63946;
+    transition: color 0.3s ease;
+}
+
+.close-modal-btn:hover {
+    color: #b21828;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    table {
+    .nav {
+        padding: 0 20px;
+    }
+
+    .district-head-table {
         width: 100%;
         display: block;
         overflow-x: auto;
     }
 
-    th, td {
+    .table-header-row th, .table-data-row td {
         font-size: 14px;
-        padding: 8px;
+        padding: 10px;
     }
 
-    .approve-btn, .reject-btn {
-        width: 100%;
-        display: block;
-        margin: 5px 0;
+    .action-buttons {
+        flex-direction: row;
+        gap: 5px;
     }
+
+    .image-modal {
+        width: 95%;
+        height: 95%;
+    }
+}
+
+/* Loading and Error Messages */
+.loading-message, .no-data-message {
+    font-size: 18px;
+    color: #064e3b;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.error-message {
+    font-size: 18px;
+    color: #e63946;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
 }
